@@ -59,11 +59,15 @@ if ( version_compare( PHP_VERSION, BEA_VC_BD_MIN_PHP_VERSION, '<' ) ) {
  */
 require_once BEA_VC_BD_DIR . 'autoload.php';
 
+// Plugin activate/deactive hooks
+register_activation_hook( __FILE__, array( '\BEA\VC_BD\Plugin', 'activate' ) );
+
 add_action( 'plugins_loaded', 'init_bea_vc_bd_plugin' );
 /**
  * Init the plugin
  */
 function init_bea_vc_bd_plugin() {
+
 	// Client
 	\BEA\VC_BD\Main::get_instance();
 

@@ -15,5 +15,8 @@ class Main {
 	use Singleton;
 
 	public function __construct() {
+
+
+
 	}
 }
