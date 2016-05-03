@@ -4,7 +4,7 @@
  Version: 1.0.0
  Version Boilerplate: 2.1.2
  Plugin URI: http://www.beapi.fr
- Description: Your plugin description
+ Description: Show Visual Composer HTML templates
  Author: BE API Technical team
  Author URI: http://www.beapi.fr
  Domain Path: languages

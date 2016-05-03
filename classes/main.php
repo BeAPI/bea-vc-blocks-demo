@@ -19,7 +19,10 @@ class Main {
 	use Singleton;
 
 	protected function init() {
-		add_action( 'init', array( $this, 'init_translations' ) );
+		add_action( 'init', array( __CLASS__, 'init_translations' ) );
+
+		// init the shortcode
+		add_action( 'init', array( __CLASS__, 'init_shortcode' ) );
 	}
 
 	/**
@@ -30,4 +33,28 @@ class Main {
 		load_plugin_textdomain( 'bea-vc-bd', false, BEA_VC_BD_DIR . 'languages' );
 	}
 
+	/**
+	 * Init Shortcode and call anonymous function for include each template
+	 */
+	public static function init_shortcode() {
+		// Get VC Templates
+		$vc_templates = Helpers::get_vc_templates();
+
+		if ( empty( $vc_templates ) ) {
+			return false;
+		}
+
+		foreach ( $vc_templates as $path => $template_name ) {
+			add_shortcode( sanitize_title( $template_name ), function() use ( $path ) {
+				if ( ! is_file( $path ) ) {
+					return false;
+				}
+
+				//include template and display it
+				ob_start();
+				include( $path );
+				return ob_get_clean();
+			} );
+		}
+	}
 }
